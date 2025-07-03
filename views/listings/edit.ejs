@@ -1,0 +1,63 @@
+<%layout("/layouts/boilerplate.ejs")%>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4">Edit your listing</h3>
+                        <form 
+                            action="/listings/<%=listing._id %>?_method=PUT" method="post"
+                            novalidate
+                            class="needs-validation"
+                            enctype="multipart/form-data"
+                        >
+                            <!-- query string-> ?_method=PUT -->
+                            <div class="mb-3">
+                                <label for="title" class="form-label">title : </label>
+                                <input type="text" class="form-control" value="<%=listing.title%>" name="listing[title]">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="description">description :</label>
+                                <textarea class="form-control" name="listing[description]" 
+                                    cols="20"><%=listing.description%></textarea>
+                            </div>
+                            <% if(listing.image && listing.image.url) {%>
+                                <div class="mb-3">
+                                    <label class="form-label">Current Img</label><br>
+                                    <img src="<%=originalImageUrl%>" >
+                            </div>
+                            <% } %>
+                            
+                            
+                            <div class="mb-3">
+                                <label class="form-label" for="image">image: </label>
+                                <input 
+                                    class="form-control" 
+                                    type="file" 
+                                    name="listing[image]" 
+                                >
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="price">Price: </label>
+                                <input class="form-control" type="number" value="<%=listing.price%>" name="listing[price]">
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-4">
+                                    <label class="form-label" for="country">country: </label>
+                                <input class="form-control" type="text" name="listing[country]" value="<%=listing.country%>">
+                                </div>
+                                <div class="mb-3 col-8">
+                                    <label class="form-label" for="location">location: </label>
+                                    <input class="form-control" type="text" name="listing[location]" value="<%=listing.location%>">
+                                </div>
+                               
+                            </div>
+                            
+                            <button class="btn btn-primary w-100">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

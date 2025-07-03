@@ -1,0 +1,156 @@
+<% layout('/layouts/boilerplate.ejs') -%>
+    <!-- <h3 style="text-align: center;">All listings</h3> -->
+     <style>
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter {
+    text-align: center;
+    margin-top: 2rem;
+    margin-right: 2rem;
+  }
+  .filter:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+  .filter p {
+    font-size: 0.8rem;
+  }
+  .tax-toggle {
+    display: flex;
+    margin: 1.5rem auto;
+    padding: 0.5rem 1rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    width: fit-content;
+    height: 3.2 rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tax-info {
+    display: none;
+    font-size: 0.9rem;
+    color: #555;
+    transition: opacity 0.3s ease-in-out;
+    margin-top: .5rem;
+  }
+  
+</style>
+
+<div id="filters">
+  <div class="filter">
+    <a href="/listings?category=Trending" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </a>
+  </div>
+
+  <div class="filter">
+    <a href="/listings?category=Rooms" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+    </a>
+  </div>
+
+  <div class="filter">
+    <a href="/listings?category=Mountains" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-mountain-sun"></i></div>
+      <p>Mountains</p>
+    </a>
+  </div>
+
+  <div class="filter">
+    <a href="/listings?category=Iconic cities" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-mountain-city"></i></div>
+      <p>Iconic cities</p>
+    </a>
+  </div>
+
+  <div class="filter">
+    <a href="/listings?category=Fort-awesome" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Fort-awesome</p>
+    </a>
+  </div>
+
+  <div class="filter">
+    <a href="/listings?category=Amazing Pool" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Amazing Pool</p>
+    </a>
+  </div>
+
+  <div class="filter">
+    <a href="/listings?category=Camping" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+    </a>
+  </div>
+
+  <div class="filter">
+    <a href="/listings?category=Farms" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-cow"></i></div>
+      <p>Farms</p>
+    </a>
+  </div>
+  <div class="filter">
+    <a href="/listings?category=Rain" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-umbrella-beach"></i></div>
+      <p>Rain</p>
+    </a>
+  </div>
+  <div class="filter">
+    <a href="/listings?category=Arctic" style="text-decoration: none; color: inherit;">
+      <div><i class="fa-solid fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </a>
+  </div>
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+    <label class="form-check-label" for="flexSwitchCheckDefault">Display Taxes</label>
+    </div>
+  </div>
+</div>
+
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+      <% for(let listing of allListing){%>
+        <a href="/listings/<%=listing._id %>" class="listing-link">
+        <div class="card col listing-card">
+            <img class="card-img-top" src="<%=listing.image.url || 'https://t3.ftcdn.net/jpg/11/03/78/66/240_F_1103786625_qt3k12SZfF5y3TqOT4PBlWxwwPPO4xOi.jpg'%>" alt="listing_img" style=" height: 20rem;">
+
+            <div class="card-img-overlay"></div>
+
+            <div class="card-body">
+              <h5 class="card-title"><b><%=listing.title %></b></h5>
+              <p class="card-text">       
+                <%=listing.description %> <br>
+                &#x20b9; <%= listing.price.toLocaleString("en-IN") %>/night
+                <i class="tax-info">&nbsp; +18%GST</i>
+               </p>
+              <!-- <a href="#" class="btn btn-primary">/</a> -->
+            </div>
+          </div></a>
+          <%}%>
+    </div>
+
+    <script>
+
+      let taxSwitch=document.getElementById("flexSwitchCheckDefault");
+      taxSwitch.addEventListener("click",()=>{
+        let taxInfo=document.getElementsByClassName("tax-info");
+        console.log(taxInfo);
+        for(info of taxInfo){
+          if(info.style.display !="inline"){
+            info.style.display="inline";
+          }else{
+            info.style.display="none";
+            
+          }
+        }
+      })
+    </script>
